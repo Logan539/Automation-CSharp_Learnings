@@ -1,0 +1,81 @@
+// to get any attribute value
+1. Create a xpath and create a IWebElement using it.
+2. IWebElement.GetAttribute(Value)
+3. This will give you the value of that attribute
+
+// If any text field is present and its value is not showing up in web page you can use GetAttribute("value")
+1. Create a xpath and create a IWebElement using it.
+2. IWebElement.GetAttribute("value")
+3. This will give you the text
+
+// Explicit wait can be used like below. It will need a package (DotNetSeleniumExtras.WaitHelpers)
+WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementValue(driver.FindElement(By.CssSelector("#signInBtn")), "Sign In"));
+There are multiple expected conditions and you can use it as per your need
+
+// For selecting dropdown values you can use SelectElement class
+1. Create Iwebelement for the dropdown xpath
+2. Declare an object for SelectElement with argument as IwebElement
+3. You can use three ways to select these dropdowns now
+            se.SelectByText("Teacher");
+            se.SelectByValue("consult");
+            se.SelectByIndex(0);
+
+// Work on different windows
+            string origWindow = driver.CurrentWindowHandle;
+            driver.FindElement(By.LinkText("Free Access to InterviewQues/ResumeAssistance/Material")).Click();
+            Log("count : " + driver.WindowHandles.Count);
+            driver.SwitchTo().Window(driver.WindowHandles[1]);
+            Log(driver.FindElement(By.XPath("//h1")).Text);
+            string usrName = driver.FindElement(By.XPath("//a[contains(text(),'mentor')]")).Text;
+            driver.SwitchTo().Window(origWindow);
+
+// For alerts you can use by default methods as below. This will have multiple methods such as deny, or if any alert has some text inputs
+we can do that as well
+            string alertIs = driver.SwitchTo().Alert().Text;
+            driver.SwitchTo().Alert().Accept();
+
+// Play around with auto suggestive dropdown
+            driver.FindElement(By.XPath("//input[@id='autocomplete']")).SendKeys("man");
+            Thread.Sleep(3000);
+            IList<IWebElement> suggDropDowns = driver.FindElements(By.XPath("//li[@class='ui-menu-item']/div"));
+            foreach( IWebElement element in suggDropDowns)
+            {
+               if(element.Text.Equals("Romania"))
+                {
+                    element.Click();
+                }
+            }
+            Log(driver.FindElement(By.XPath("//input[@id='autocomplete']")).GetAttribute("value"));
+
+// Work with frames
+            //scroll down on the page
+            IWebElement scroll = driver.FindElement(By.Id("courses-iframe"));
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", scroll);
+
+            //Switching to frames and back. courses-iframe is id
+            driver.SwitchTo().Frame("courses-iframe");
+            driver.FindElement(By.XPath("//li/a[text()='All Access plan']")).Click();
+            Thread.Sleep(5000);
+            Log(driver.FindElement(By.XPath("//h1")).Text);
+            Assert.IsTrue(driver.FindElement(By.XPath("//h1")).Text == "ALL ACCESS SUBSCRIPTION", "Title not matching");
+            driver.SwitchTo().DefaultContent();
+            Log(driver.FindElement(By.XPath("//h1")).Text);
+
+// Method that can be used for scrolling, here scroll is webelment where you want to scroll. this can be used in case you are getting 
+element click intercepted message
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", scroll);
+
+// Actions class is used in case we want to do some operations like mouse click, hover and other things
+            Actions a = new Actions(driver);
+
+            //Hovering and selecting
+            a.MoveToElement(driver.FindElement(By.XPath("//li/a[@class='dropdown-toggle']"))).Perform();
+            Thread.Sleep(3000);
+            a.MoveToElement(driver.FindElement(By.XPath("//ul[@class='dropdown-menu']/li[1]/a"))).Click().Perform();
+
+            //draganddrop
+            a.DragAndDrop(driver.FindElement(By.Id("draggable")), driver.FindElement(By.Id("droppable"))).Perform();
+            Thread.Sleep(3000);

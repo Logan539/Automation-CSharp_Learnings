@@ -1,1 +1,94 @@
+// Encapsulation is demonstrated by bundling data and methods within a class and controlling access to them using access modifiers.
+      In C#, encapsulation is achieved through the use of access modifiers such as public, private, protected, and internal, as well as through properties and methods.
 
+1. Using Access Modifiers - public, private, protected, and internal to control accessibility of variables
+2. Using getter and setter methods
+  public class Car
+  {
+    private string make;
+    public string Make
+    {
+        get { return make; }
+        set { make = value; }
+    }
+  }
+
+// Inheritance - Inheritance is the mechanism by which a new class can inherit properties and behaviors (methods) from an existing class, known as the base or parent class
+// Polymorphism - 
+  Polymorphism means the ability of objects to take on multiple forms. 
+  There are two types of polymorphism in C#: compile-time polymorphism (achieved through method overloading and operator overloading) 
+  and runtime polymorphism (achieved through method overriding and interface implementation). 
+  In method overriding, a derived class provides a specific implementation of a method that is already defined in its base class. 
+  In interface implementation, a class can implement multiple interfaces, allowing it to be treated as an instance of any of those interfaces.
+
+// Abstraction: Abstraction refers to the process of hiding the complex implementation details and showing only the essential features of an object. 
+  It helps in reducing programming complexity and focusing on relevant details. 
+  In C#, abstraction is achieved through abstract classes and interfaces. 
+  Abstract classes cannot be instantiated and may contain abstract methods that must be implemented by derived classes. 
+  Interfaces define a contract that classes can implement, specifying the methods and properties they must provide.
+
+// Abstract class
+abstract class Animal
+{
+  // Abstract method (does not have a body)
+  public abstract void animalSound();
+  // Regular method
+  public void sleep()
+  {
+    Console.WriteLine("Zzz");
+  }
+}
+// Derived class (inherit from Animal)
+class Pig : Animal
+{
+  public override void animalSound()
+  {
+    // The body of animalSound() is provided here
+    Console.WriteLine("The pig says: wee wee");
+  }
+}
+class Program
+{
+  static void Main(string[] args)
+  {
+    Pig myPig = new Pig(); // Create a Pig object
+    myPig.animalSound();  // Call the abstract method
+    myPig.sleep();  // Call the regular method
+  }
+}
+
+// Virtual - Virtual keyword is used to modify a method, property, or indexer declaration and allow it to be overridden in derived classes. 
+    When a method is marked as virtual, it means that the method can be overridden in any derived class.
+
+public class Animal
+{
+    // Virtual method
+    public virtual void MakeSound()
+    {
+        Console.WriteLine("Animal makes a sound");
+    }
+}
+
+public class Dog : Animal
+{
+    // Overrides the MakeSound method from the base class
+    public override void MakeSound()
+    {
+        Console.WriteLine("Dog barks");
+    }
+}
+
+public class Cat : Animal
+{
+    // Overrides the MakeSound method from the base class
+    public override void MakeSound()
+    {
+        Console.WriteLine("Cat meows");
+    }
+}
+
+// Method Overloading and Method Overriding
+  Method Overloading means method will have same name but with different parameters
+  Method overriding is a feature of inheritance that allows a subclass to provide a specific implementation of a method that is already defined in its superclass. 
+    It allows a derived class to replace or extend the behavior of a method inherited from its base class. 
+    The override keyword is used in the derived class to indicate that a method is overriding a method in the base class.

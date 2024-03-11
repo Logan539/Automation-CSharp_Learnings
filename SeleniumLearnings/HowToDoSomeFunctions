@@ -1,0 +1,71 @@
+// Verify Broken Link
+// Here we are just using one sample link but if we want to check on the whole page then we should use driver.FindElements
+to get all the links and use below function to check whether they are returning ok or not.
+            string hrefs = driver.FindElement(By.XPath("//a[contains(text(),'Broken Link')]")).GetAttribute("href");
+            Console.WriteLine(hrefs);
+            try
+            {
+                // Create a new HttpWebRequest
+                var request = System.Net.WebRequest.Create(hrefs) as System.Net.HttpWebRequest;
+                // Set the request method
+                request.Method = "HEAD";
+                // Get the response
+                var response = request.GetResponse() as System.Net.HttpWebResponse;
+                // Check if the response status code indicates success
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Console.WriteLine($"{hrefs} is working fine.");
+                }
+                // Close the response
+                response.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{hrefs} is broken: {ex.Message}");
+            }
+
+// Verify Broken Image
+There are multiple ways to do this.
+1. Use elemtn.displayed to check whether image is getting displayed or not
+2. Get width and height of the image to check whether its returning zero or not
+3. If none of the above is working then we can use below method
+
+Here we will get the content of the page and check whether its returning image type or something else. if it return image
+then image is loading successfully else its a broken image
+
+string imageUrl = "https://demoqa.com/images/Toolsqa_1.jpg";
+try
+{
+    // Create a web request to the image URL
+    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(imageUrl);
+    request.Method = "GET";
+
+    // Get the response
+    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+    // Check if the response status is successful
+    if (response.StatusCode == HttpStatusCode.OK)
+    {
+        // Check if the content type is an image
+        string contentType = response.ContentType;
+        if (contentType.StartsWith("image"))
+        {
+            Console.WriteLine("Image loaded successfully");
+        }
+        else
+        {
+            Console.WriteLine("Response is not an image");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Failed to load image");
+    }
+
+    // Close the response
+    response.Close();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"An error occurred: {ex.Message}");
+}

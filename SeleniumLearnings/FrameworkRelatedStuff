@@ -1,0 +1,19 @@
+#Page Object modelling
+In page object modeling framework, we will divide our webpages into different files and whatever xpaths or functions are their we will 
+add them into separate files.
+Below is how we can create xpath for them. Package needed: SeleniumExtras.PageObjects
+        private IWebDriver driver;
+        public LoginPage(IWebDriver driver)
+        {
+            this.driver = driver;
+            PageFactory.InitElements(driver, this);
+        }
+
+        [FindsBy(How = How.Id, Using = "username")]
+        private IWebElement username;
+        public IWebElement getUserName()
+        {
+            return username;
+        }
+
+We can then directly use the getUserName method or username and perform the operations.

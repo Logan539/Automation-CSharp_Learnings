@@ -1,7 +1,6 @@
 // Threading - running methods concurrently/Paralley to save execution time
 // Here I have added two simple methods to show how we can achieve threadding in csharp
 
-
 namespace ThreaddingTest
 {
     public class Program
@@ -46,18 +45,15 @@ namespace ThreaddingTest
 
         static void Main(string[] args)
         {
-			//Object of thread
+	    //Object of thread
             Thread th1 = new Thread(SortArray1);
             Thread th2 = new Thread(IsPalind);
-			
-			//to start the thread for execution
+	    //to start the thread for execution
             th1.Start();
             th2.Start();
-
-			//If added main code will wait for thread to be executed.
+	    //If added main code will wait for thread to be executed.
             th1.Join();
             th2.Join();
-
             Console.WriteLine("Done");
         }
     }

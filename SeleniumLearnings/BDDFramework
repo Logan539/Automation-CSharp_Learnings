@@ -96,3 +96,18 @@ Feature: Shopping
 Before and background are different, if we want to add some driver setup and other declaration then use before hook. If we want to do certain things before each scenario like logging into site, then that can be added in background.
 
 We can also use multiple data sources as well such as csv and json file
+
+Stepdefinition will look like this:
+without parameters:
+        [When(@"When I click on Menu toggle")]
+        public void WhenWhenIClickOnMenuToggle()
+        {
+            //Code
+        }
+		
+With Parameter:
+        [When(@"I fills in the registration details with username ""([^""]*)"" and password ""([^""]*)""")]
+        public void WhenIFillsInTheRegistrationDetailsWithUsernameAndPassword(string usr, string pwd)
+        {
+			//code
+        }

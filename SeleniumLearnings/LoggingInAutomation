@@ -1,1 +1,71 @@
+There are multiple ways to log results for automation, I will add few of them here. Its just an overview with little bit of issues or any complex declaration.
 
+1. Extent reports:
+	One of the most used html based reporting. Using this we can create html reports that are easy to read and have UI thats easy to understand.
+	For using this in our code, we need to add Extent package in code
+	Few of the declarations that we need to do are as below:
+	
+	ExtentReports extent;
+	ExtentSparkReporter reporter;
+	ExtentTest test;
+	
+	this is how you can initialize the extent stuff.
+	reporter = new ExtentSparkReporter(pathofreport);
+	reporter.Config.Theme = Theme.Dark;
+	reporter.Config.DocumentTitle = "Test";
+	reporter.Config.ReportName = "Test1";
+	extent = new ExtentReports();
+	extent.AttachReporter(reporter);
+	
+	If you are using old version of extent report then we don't have to do anything extra in our code. version before 4.1 are working fine without any change but versions after 4.1 are giving assembly manifest missing error, for this we need to add an App.config file in our project and add below xml code to it.
+	
+	<?xml version="1.0" encoding="utf-8" ?>
+	<configuration>
+	<runtime>
+		<assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+			<dependentAssembly>
+				<assemblyIdentity name="System.Runtime.CompilerServices.Unsafe" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
+				<bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
+			</dependentAssembly>
+		</assemblyBinding>
+	</runtime>
+	</configuration>
+	
+	how to log results in this can be found on net or any youtube tutorial will help in that.
+	
+2. Nlog:
+	Nlog will help you create an excel file for logging results. This can be used in case UI is not much important in result and results are in high number.
+	
+	For using Nlog into your product, you will need to add Nlog package or its using
+	
+	for this we need to also add Nlog.config file into our project like below
+	<!-- for storing logs to excel file -->
+	<?xml version="1.0" encoding="utf-8" ?>
+	<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<targets>
+		<target name="file" xsi:type="File" fileName="filepath\test\logs-${date:format=yyyy-MM-dd_HH-mm}.txt" />
+	</targets>
+	<rules>
+		<logger name="*" minlevel="Info" writeTo="file" />
+	</rules>
+	</nlog>
+
+	<!-- for storing logs to csv file -->
+	<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<targets>
+    <target name="csv" xsi:type="File"
+            fileName="filepath\test\logs-${date:format=yyyy-MM-dd_HH-mm}.csv"
+            layout="${level}, ${message}"
+			header="Level,Message"/>
+  
+	</targets>
+	<rules>
+    <logger name="*" minlevel="Info" writeTo="csv" />
+	</rules>
+	</nlog>
+	
+	other stuff on how to exactly call it in test so that it will log can found in youtube tutorial or google
+	
+3. You can even use of Logger functionality of csharp that will log the output in test and then you can go through it.

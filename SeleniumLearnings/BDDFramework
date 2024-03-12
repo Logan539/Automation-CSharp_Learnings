@@ -1,1 +1,98 @@
+BDD framework in csharp uses specflow for feature file creation.
+BDD framework is widely used as its easy to write the steps for it and any not technical person can give steps for it.
 
+There are multiple ways to write BDD feature file, I have added some of them below:
+1) Simple feature file will consist a featur headling, Scenrio on what we are executing and given, when, then.
+Feature: Simple Operation
+
+Scenario: Go to Url and verify
+	Given That I am on product page // Given is used when showing that you are already on that page
+	When click on cancel to close the signup //When for any action taken by user
+	Then verify the title of page //Then for verification of the actions at the end like verifing whether user has logged in or not
+	And add product to cart //And can be used given, when and then when there are multiple things you want to do.
+	Then close the browser
+	
+2) feature file with multiple data to pass
+If we use "<param>" we can pass the data to it and to pass data we can use a Examples:, format is below.
+How many rows we will pass in Examples will determine for how many times it will run.
+
+Feature: Login
+
+Scenario: Register a User and Log in with it
+	Given I am on a HomePage
+	When When I click on Menu toggle
+	And I click on Sign In portal
+	And I select to register new user
+	And I fills in the registration details with username "<Username>" and password "<Password>"
+	And I go back to Sign In portal
+	And I enter valid login details and submit
+	Then User Should be logged in successfully
+	And Close the browser
+
+	Examples:
+      | Username | Password |
+      | girish   | girish   |
+      | girish1  | girish1  |
+	  
+3) Multiple scenrios in a single file
+
+Feature: Calculator
+    As a user
+    I want to perform basic arithmetic operations
+    So that I can calculate mathematical expressions
+
+Scenario: Add two numbers
+    Given I have entered 50 into the calculator
+    And I have entered 70 into the calculator
+    When I press add
+    Then the result should be 120 on the screen
+
+Scenario: Subtract two numbers
+    Given I have entered 100 into the calculator
+    And I have entered 30 into the calculator
+    When I press subtract
+    Then the result should be 70 on the screen
+
+here we can add multiple scenrios regarding same feature under one file and in turn create functions for it. 
+
+4) Before hook in StepDefinition file
+this hook is kind of an intialize method, whatever things we want to initalize before running code can be added here and it will be executed before each scenrios
+
+Sample:
+[Binding]
+public class Hooks
+{
+    [BeforeScenario]
+    public void BeforeScenario()
+    {
+        // Setup code goes here
+        // This code will run before each scenario
+    }
+}
+
+5) BackGround :
+The Background keyword allows you to define steps that should be executed before each scenario in the feature file. This is useful for defining common preconditions that are shared across multiple scenarios within the same feature file.
+
+Feature: Shopping
+    As a user
+    I want to log in and add products to my cart
+    So that I can purchase items
+
+    Background:
+        Given I am on the login page
+        And I enter my username and password
+        And I click the login button
+        Then I should be logged in successfully
+
+    Scenario: Add product to cart
+        When I search for "Product X"
+        And I click on "Product X" to view details
+        And I click the "Add to Cart" button
+        Then "Product X" should be added to my cart
+
+    Scenario: Another scenario
+        // Steps specific to this scenario
+
+Before and background are different, if we want to add some driver setup and other declaration then use before hook. If we want to do certain things before each scenario like logging into site, then that can be added in background.
+
+We can also use multiple data sources as well such as csv and json file

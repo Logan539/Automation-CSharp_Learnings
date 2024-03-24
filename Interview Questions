@@ -1,1 +1,81 @@
 // File contains some of the interview questions that I have faced during my interviews.
+//The count will keep increasing as I face the questions
+
+Csharp Questions: (focus more on abstraction and interface)
+1) Explain OOPS concepts
+2) Tell me the difference between abstraction and interface
+3) Can I create an object of an abstract class
+4) Tell me how I can do explicit interface
+5) Explain thread and task in c#
+6) What is LINQ?
+7) What is ref and out?
+8) What is a reference variable?
+9) Can you add abstraction in interface?
+10) What is arraylist?
+11) Explain what is tuple?
+12) checked exception vs unchecked exception.
+13) Explain polymorphism
+14) Types of constructor
+15) Static class (do some theory, whats the use, disadvantages vs advantages)
+16) What is the difference between '==' and .Equals()?
+17) What is extension methods and how can you create it?
+18) What does select and where in LINQ?
+19) What are the design pattern of class? And which one do you use?
+20) What is set?
+21) Method overloading and method overriding.
+22) How do we create customized exceptions?
+23) Can you have multiple inheritance in c#? how?
+
+Csharp Coding questions:
+1) Array Sorting
+2) Reverse a string
+3) From a given string find out how many characters are repeated. Example: string = "GirishGaikwad", first get a unique characters from this string
+and then check how many times it has reoccured.
+4) Prime Numbers
+5) Swap two numbers. Example, a=10, b=20. output should a=20, b=10
+6) Reverse a number. Example a=123456, output should be 654321
+
+Selenium Question:
+1) What is absolute Xpath and relative xpath? And which one to use?
+2) Read about xpath axes like child, parent etc and see how they are used.
+3) How to work with frames?
+4) How to handle windows popups?
+5) Is webdriver interface or normal class?
+6) Explain waits?
+7) What is stale element exception and how will you handle it?
+8) How will you handle any exception?
+9) How to deal with broken image or link?
+10) How will you read any attribute using xpath?
+11) How to get value of a element when its not getting logged anywhere in webpage?
+12) Do Xpath practice and some may ask you to create xpath for some page. Also have a practive of creating xpath without using inspect.
+
+Framework related questions:
+1) Which framework you are using?
+2) Explain your framework?
+3) How is your project structure looks like?
+4) What kind of code Maintainability you do?
+5) How do you run test case multiple times?
+6) How do you run test cases parallely?
+7) What is Page factory object/class?
+8) how to reduce time taken to run tests.
+9) Framework is datadriver or keyword driver or hybrid?
+10) How will you develop a framework from scratch?
+
+BDD framework:
+1) Explain BDD framework
+2) Why should we use it?
+3) What is Given, when and then?
+4) How to pass multiple input in BDD?
+5) How to pass once scenrio output to other?
+6) What is background and before hooks?
+7) how do you create step definition?
+
+Common questions in framework:
+1) How to read data from excel?
+2) How to read data from json?
+3) How to read data from config file?
+
+CI/CD:
+understand how its done in your project.
+Learn jenkins and how its done
+Read about git on how its used for your code repo

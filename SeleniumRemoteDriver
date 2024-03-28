@@ -1,0 +1,22 @@
+// Here we will see how can we setup remotedrivers for our testing
+
+1) You should have jdk installed on your system as the files which we will use for creating server are jar files.
+2) Download Selenium Server (Grid) from this url https://www.selenium.dev/downloads/
+3) Once downloaded open command prompt with admin and as per requirment use below commands.
+  To use as a standalone server: This means my server and machine will stay on same machine.
+  CMD: java -jar server.jar standalone
+  This command will create a node with chrome, edge, IE and firefox browser
+
+  To use on multiple machines like hub and node.
+  this means server will be on one machine and nodes(client) will be on different machine
+  CMD: To create hub: java -jar server.jar hub
+        To create node: java -jar server.jar node --selenium-manager true
+
+While creating node, if you don't add '--selenium-manager true' tag, node will only create with chrome browser and to create node with multiple browsers add that tag.
+
+C# Code for driver setup:
+Driver setup will look like this:
+
+RemoteWebDriver driver;
+ChromeOptions Options = new ChromeOptions();
+driver = new RemoteWebDriver(new Url("http://localhost:4444/"), Options);

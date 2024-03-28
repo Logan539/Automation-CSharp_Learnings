@@ -3,12 +3,14 @@
 1) You should have jdk installed on your system as the files which we will use for creating server are jar files.
 2) Download Selenium Server (Grid) from this url https://www.selenium.dev/downloads/
 3) Once downloaded open command prompt with admin and as per requirment use below commands.
-  To use as a standalone server: This means my server and machine will stay on same machine.
+  To use as a standalone server: In standalone mode, you typically have both the hub and the node running on the same machine. 
+This setup is useful for local testing or when you want to run tests on a single machine without distributing them across multiple nodes.
   CMD: java -jar server.jar standalone
   This command will create a node with chrome, edge, IE and firefox browser
 
   To use on multiple machines like hub and node.
-  this means server will be on one machine and nodes(client) will be on different machine
+  In this setup, you have a separate machine acting as the hub, which manages test distribution, and one or more machines acting as nodes, 
+which execute the tests. This setup is useful for distributing tests across multiple machines to achieve parallel execution and better resource utilization.
   CMD: To create hub: java -jar server.jar hub
         To create node: java -jar server.jar node --selenium-manager true
 
